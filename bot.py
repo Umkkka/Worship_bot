@@ -9,12 +9,8 @@ from config import database, token
 bot = telebot.TeleBot(config.token)
 db_worker = SQLighter(config.database)
 today = datetime.date.today()
-admin = {'Naum': 561832414, 'Jenya_Puk': 326063163}
-users = {'Naum': 561832414, 'Jenya_Puk': 326063163, 'Vlad': 964274162, 'Igor': 338175053, 'Kirill': 678879328,
-         'Marina': 356501970, 'Markops':422232272, 'Mark': 1138998802, 'Nadya': 570692271, 'Nastya': 388372626,
-         'Sasha': 382993622, 'Pasha': 573323558, 'Julia': 778328958, 'Yura': 991849878, 'Jenya_Pan': 542399943,
-         'Diana': 847182943}
-
+admin = ADMIN
+users = USERS
 @bot.message_handler(commands = ['start'])
 def start(message):
     if message.chat.id in users.values():

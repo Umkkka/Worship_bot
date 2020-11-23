@@ -1,19 +1,16 @@
 import config
 import telebot
-import datetime
 import pendulum
 from telebot import types
-from SQLighter import SQLighter
-from config import database, token
+from queries import SQLighter
+from config import database, token, users, admin
 
 bot = telebot.TeleBot(config.token)
 db_worker = SQLighter(config.database)
-today = datetime.date.today()
-admin = ADMIN
-users = USERS
+
 @bot.message_handler(commands = ['start'])
 def start(message):
-    if message.chat.id in users.values():
+    if message.chat.id in config.users.values():
         mes = 'Привет! Я Bot-помощник для группы прославления TheMosChurch.' + '\n' + 'На данный момент я могу присылать ' \
           'тебе список хвал на нынешнюю и следующую неделю с помощью определенного списка команд. В дальнейшем будут ' \
           'добавлены новые функции.' + '\n' + 'Любые идеи можешь писать моему создателю - @b_qwn' + '\n'
@@ -47,7 +44,7 @@ def helper(message):
 
 @bot.message_handler(commands = ['add_program'])
 def add_program(message):
-    if message.chat.id in admin.values():
+    if message.chat.id in config.admin.values():
         mes = str(message.text)[12:] # Сообщение без /add_program
         date = mes[1:6] # Дата
         songs = mes[7:] # Список хвал
@@ -56,7 +53,7 @@ def add_program(message):
 
 @bot.message_handler(commands = ['update_program'])
 def update_program(message):
-    if message.chat.id in admin.values():
+    if message.chat.id in config.admin.values():
         mes = str(message.text)[15:]  # Сообщение без /update_program
         date = mes[1:6]  # Дата
         songs = mes[7:]  # Список хвал
@@ -65,7 +62,7 @@ def update_program(message):
 
 @bot.message_handler(commands = ['delete_program'])
 def delete_program(message):
-    if message.chat.id in admin.values():
+    if message.chat.id in config.admin.values():
         mes = str(message.text)[15:]  # Сообщение без /delete_program
         date = mes[1:]  # Дата
         bot.send_message(message.chat.id, db_worker.delete_program(date))
@@ -75,7 +72,7 @@ def delete_program(message):
 def schedule(message):
     welcome = ['привет', 'хай', 'ку', 'здарова', 'здаров', 'даров', 'дороу', 'hi', 'приветики', 'здравствуй', 'прив',
                'хэй', 'хей', 'шалом']
-    if message.chat.id in users.values():
+    if message.chat.id in config.users.values():
         try:
             if message.text == 'Сегодня':
                 date = pendulum.now().strftime('%d.%m')

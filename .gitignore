@@ -4,7 +4,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-.idea/
+.idea/Worship_bot.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
 
 # C extensions
 *.so

@@ -1,2 +1,2 @@
-# Worship_bot
+# Schedule bot
 Bot assistant for the worship group

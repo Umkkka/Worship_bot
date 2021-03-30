@@ -9,7 +9,7 @@ class SQLighter:
 
     def songs(self, date):
         with self.connection:
-            sqlite_select_query = """SELECT songs from list WHERE date == {}""".format(str(date))
+            sqlite_select_query = """SELECT songs from list WHERE date == '{}'""".format(str(date))
             self.cursor.execute(sqlite_select_query)
             songs = self.cursor.fetchall()
             return songs
@@ -39,7 +39,7 @@ class SQLighter:
     def delete_program(self, date):
         with self.connection:
             try:
-                sqlite_insert_query = "DELETE FROM list WHERE date == {}".format(str(date))
+                sqlite_insert_query = "DELETE FROM list WHERE date == '{}'".format(str(date))
                 self.cursor.execute(sqlite_insert_query)
             except sqlite3.Error as error:
                 return "Не удалось удалить программу. Ошибка: {}".format(str(error))

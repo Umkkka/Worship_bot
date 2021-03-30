@@ -1,7 +1,6 @@
 import config
 import telebot
 import pendulum
-import datetime
 from telebot import types
 from queries import SQLighter
 from config import database, token, users, admin
@@ -84,7 +83,7 @@ def schedule(message):
                 bot.send_message(message.chat.id, 'Список на пятницу {}:'.format(date))
                 bot.send_message(message.chat.id, db_worker.songs(date))
             elif message.text == 'Следующая пятница':
-                date = (pendulum.now().next(pendulum.FRIDAY) + datetime.timedelta(days = 7)).strftime('%d.%m')
+                date = pendulum.now().next(pendulum.FRIDAY).next(pendulum.FRIDAY).strftime('%d.%m')
                 bot.send_message(message.chat.id, 'Список на пятницу {}:'.format(date))
                 bot.send_message(message.chat.id, db_worker.songs(date))
             elif message.text == 'Нынешняя суббота':
@@ -92,7 +91,7 @@ def schedule(message):
                 bot.send_message(message.chat.id, 'Список на субботу {}:'.format(date))
                 bot.send_message(message.chat.id, db_worker.songs(date))
             elif message.text == 'Следующая суббота':
-                date = (pendulum.now().next(pendulum.SATURDAY) + datetime.timedelta(days = 7)).strftime('%d.%m')
+                date = pendulum.now().next(pendulum.SATURDAY).next(pendulum.SATURDAY).strftime('%d.%m')
                 bot.send_message(message.chat.id, 'Список на субботу {}:'.format(date))
                 bot.send_message(message.chat.id, db_worker.songs(date))
             elif message.text == 'Нынешнее воскресенье':
@@ -100,7 +99,7 @@ def schedule(message):
                 bot.send_message(message.chat.id, 'Список на воскресенье {}:'.format(date))
                 bot.send_message(message.chat.id, db_worker.songs(date))
             elif message.text == 'Следующее воскресенье':
-                date = (pendulum.now().next(pendulum.SUNDAY) + datetime.timedelta(days = 7)).strftime('%d.%m')
+                date = pendulum.now().next(pendulum.SUNDAY).next(pendulum.SUNDAY).strftime('%d.%m')
                 bot.send_message(message.chat.id, 'Список на воскресенье {}:'.format(date))
                 bot.send_message(message.chat.id, db_worker.songs(date))
             elif message.text in welcome:
